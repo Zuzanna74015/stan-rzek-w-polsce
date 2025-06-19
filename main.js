@@ -53,6 +53,19 @@ document.addEventListener('DOMContentLoaded', () => {
             renderData(allData);
 
             document.getElementById('wojewodztwo').addEventListener('change', function () {
+                document.getElementById('szukaj').addEventListener('input', function () {
+                    const query = this.value.toLowerCase().trim();
+                    const selected = document.getElementById('wojewodztwo').value;
+
+                    const filtered = allData.filter(st => {
+                        const nameMatch = st.stacja.toLowerCase().includes(query);
+                        const regionMatch = !selected || st.wojewodztwo === selected;
+                        return nameMatch && regionMatch;
+                    });
+
+                    renderData(filtered);
+                });
+
                 const selected = this.value;
                 if (selected === '') {
                     renderData(allData);
