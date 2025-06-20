@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Dane synoptyczne – IMGW</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light text-dark">
+  <div class="container py-5">
+    <h1 class="text-center mb-4">⛅️ Dane Synoptyczne</h1>
+    <div id="pogoda" class="row g-4 justify-content-center">
+      <p class="text-center">Ładowanie danych...</p>
+    </div>
+    <div class="text-center mt-5">
+      <a href="wybierz.html" class="btn btn-outline-primary">&larr; Wróć</a>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('https://danepubliczne.imgw.pl/api/data/synop')
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById('pogoda');
+          container.innerHTML = '';
+
+          if (!data.length) {
+            container.innerHTML = '<p class="text-center">Brak danych pogodowych.</p>';
+            return;
+          }
+
+          data.forEach(station => {
+            const card = document.createElement('div');
+            card.className = 'col-md-4';
+            card.innerHTML = `
+              <div class="card shadow-sm h-100">
+                <div class="card-body">
+                  <h5 class="card-title">${station.stacja}</h5>
+                  <p class="card-text">
+                    🌡 Temperatura: ${station.temperatura || 'brak'}°C<br>
+                    ⛈️ Opady: ${station.suma_opadu || 'brak'} mm<br>
+                    ☁ Zachmurzenie: ${station.zachmurzenie || 'brak'}<br>
+                    ☀ Ciśnienie: ${station.cisnienie || 'brak'} hPa<br>
+                    🌬 Wiatr: ${station.predkosc_wiatru || 'brak'} m/s
+                  </p>
+                </div>
+              </div>
+            `;
+            container.appendChild(card);
+          });
+        })
+        .catch(err => {
+          document.getElementById('pogoda').innerHTML = '<p class="text-danger text-center">Błąd ładowania danych.</p>';
+          console.error(err);
+        });
+    });
+  </script>
+</body>
+
+</html>
