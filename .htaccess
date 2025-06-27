@@ -1,0 +1,13 @@
+RewriteEngine On
+RewriteBase /nowe-rzeki-w-polsce/
+
+# 1. Usuń .php z końca
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php [L]
+
+# 2. Przekieruj /home na index.php
+RewriteRule ^home$ index.php [L]
+
+# 3. Opcjonalnie: przekierowanie pustej ścieżki na home (czyli / → /home)
+RewriteRule ^$ index.php [L]
+
