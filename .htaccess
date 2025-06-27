@@ -1,0 +1,15 @@
+
+RewriteEngine On
+RewriteBase /nowe-rzeki-w-polsce/
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php [L]
+
+RewriteRule ^home$ index.php [L]
+RewriteRule ^$ index.php [L]
+
+RewriteRule ^.*$ /nowe-rzeki-w-polsce/pages/404.php [L]
