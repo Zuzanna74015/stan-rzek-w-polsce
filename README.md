@@ -109,7 +109,7 @@ Dane są ładowane dynamicznie i przetwarzane w JS przy każdorazowym przeładow
 
 ## 10. Strona główna i UX
 
-* Duże przyciski: Stacje, Pogoda, Ostrzeżenia, ℹ O projekcie
+* Duże przyciski: Stacje, Pogoda, Ostrzeżenia, O projekcie
 * Przejrzyste tytuły i czytelne nagłówki
 * Nawigacja dostosowana do urządzeń mobilnych
 
